@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Craw data
+ * Plugin Name: Craw Post Data
  * Description: Craw data
  * Plugin URI: 
  * Author: Huynh Long
@@ -18,10 +18,8 @@ class ot_main_craw_data{
         add_action( 'admin_footer', [$this,'ot_craw_script'] );
         add_action( 'wp_ajax_addPostData', [$this,'addPostData'] );
         add_action( 'wp_ajax_nopriv_addPostData',  [$this,'addPostData'] );
-
         add_action( 'admin_head', [$this,'OtEnqueueScript'] );
     }
-
     function OtEnqueueScript(){
         wp_enqueue_style('craw-style', OT_URL . 'assets/css/style.css', array(), '1.0.0');
     }
@@ -89,6 +87,7 @@ class ot_main_craw_data{
                     var field_title = $('.field_title').val();
                     var field_image = $('.field_image').val();
                     var field_content = $('.field_content').val();
+                    var field_pr = $('.field_pr').val();
                     // Page current
                     var currentPage = 1;
                     if (currentPage == 0){
@@ -96,12 +95,21 @@ class ot_main_craw_data{
                     }
                     allItem = [];
                     savePageIndex = 0;
+
+                    $('.demo').append('<iframe src="" width="100%" height="300"></iframe>');
+
                     function startAPage(){
                         allItem = [];
                         savePageIndex = 0;
                         // Save All posts in the page
-                        var page = '/page/'+currentPage;
+                        // var page = '/page/'+currentPage;
+                        /*
+                        /page/1
+                        ?page=1
+                        */
+                        var page = field_pr+currentPage;
                         var pa = $.trim(field_url1+page);
+                        console.log('page',pa);
                         $.ajax({
                             url : "<?php echo admin_url('admin-ajax.php');?>",
                             data : {
@@ -123,7 +131,6 @@ class ot_main_craw_data{
                                 }
                                 // Start save post
                                 if (allItem.length > 0 && currentPage <= field_per_page){
-                                    // showMess("<span style='color: red'>Perlink: "+ pa + "</span>");
                                     savePage();
                                 }
                                 else {
@@ -137,6 +144,7 @@ class ot_main_craw_data{
                     var savePageIndex = 0;
                     function savePage(){
                         var url = allItem[savePageIndex];
+                        console.log('item',url);
                         $.ajax({
                             url : "<?php echo admin_url('admin-ajax.php');?>",
                             data : {
@@ -145,8 +153,7 @@ class ot_main_craw_data{
                             },
                             type : "get",
                             dataType:"text",
-                            success : function(result)
-                            {
+                            success : function(result){
                                 var html = $.parseHTML(result);
                                 var data = {
                                     title : $(html).find(field_title).text(),
@@ -161,7 +168,10 @@ class ot_main_craw_data{
                                     type : "post",
                                     dataType:"text",
                                     success : function(result){
-                                        showMess('<span class="craw-item"><span><img src="'+data.image+'"/></span><span>'+data.title+'</span></span>');
+                                        var image = ( data.image ) ? '<img src="'+data.image+'"/>' : '';
+                                        showMess('<span class="craw-item"><span>'+image+'</span><span>'+data.title+'</span></span>');
+                                        var n = $( ".craw-item" ).length;
+                                        $('.right .count').text(n);
                                         // Next post
                                         savePageIndex++;
                                         if (savePageIndex < allItem.length - 1){
@@ -178,7 +188,7 @@ class ot_main_craw_data{
                     }
                     return false;
                 }); 
-    });
+        });
     </script>
     <?php
     }

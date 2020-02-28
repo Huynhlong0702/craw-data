@@ -5,53 +5,54 @@
 				<div class="loading">
 					<img src="<?php echo OT_URL.'assets/images/loading.gif' ?>" alt="">
 				</div>
-				<div class="field_item">
+				<div class="field_item" title="Limit per page">
 					<label><?php esc_html_e( 'Per page', 'ot' ) ?></label>
 					<input type="number" name="field_per_page" class="field_per_page" placeholder="2" />
-					<p>Limit per page</p>
 				</div>
-				<div class="field_ite">
+				<div class="field_item">
 					<label><?php esc_html_e( 'Website', 'ot' ) ?></label>
-					<input type="url" name="field_url1" class="field_url1" placeholder="URL" value="" />
-					<p>EX: http://www.yourtheme/blog</p>
+					<input type="url" name="field_url1" class="field_url1" placeholder="http://www.yourtheme/blog" required="required" />
+				</div>
+				<div class="field_item">
+					<label><?php esc_html_e( 'Param', 'ot' ) ?></label>
+					<input type="text" name="field_pr" class="field_pr" placeholder="?page=" required="required" />
+					<p>EX: http://www.yourtheme/blog<strong style="color:red">?page=</strong> or http://www.yourtheme/blog<strong style="color:red">/page/</strong></p>
 				</div>
 				<div class="field_item">
 					<label><?php esc_html_e( 'Item', 'ot' ) ?></label>
-					<input type="text" name="field_item1" class="field_item1" placeholder="class" value="" />
-					<p>Get class item</p>
+					<input type="text" name="field_item1" class="field_item1" placeholder="" required="required" />
 				</div>
 				<div class="field_item">
 					<label><?php esc_html_e( 'Not Item', 'ot' ) ?></label>
-					<input type="text" name="field_not_item" class="field_not_item" placeholder="class" value="" />
+					<input type="text" name="field_not_item" class="field_not_item" placeholder="" />
 				</div>
 				<div class="field_item">
 					<label><?php esc_html_e( 'To link', 'ot' ) ?></label>
-					<input type="text" name="field_perlink" class="field_perlink" placeholder="class" value="" />
-					<p>Get class item to per link</p>
+					<input type="text" name="field_perlink" class="field_perlink" placeholder="class" required="required"/>
 				</div>
 				<div class="field_item">
 					<label><?php esc_html_e( 'Title', 'ot' ) ?></label>
-					<input type="text" name="field_title" class="field_title" placeholder="class title" value="" />
-					<p>Get title in single page</p>
+					<input type="text" name="field_title" class="field_title" placeholder="" required="required"/>
 				</div>
-				<div class="field_ite">
+				<div class="field_item">
 					<label><?php esc_html_e( 'Image', 'ot' ) ?></label>
-					<input type="text" name="field_image" class="field_image" placeholder="class image" />
-					<p>Get image in single page</p>
+					<input type="text" name="field_image" class="field_image" placeholder="" />
 				</div>
 				<div class="field_item">
 					<label><?php esc_html_e( 'Content', 'ot' ) ?></label>
-					<input type="text" name="field_content" class="field_content" placeholder="class content" />
-					<p>Get content in single page</p>
+					<input type="text" name="field_content" class="field_content" placeholder="" />
 				</div>
 				<div class="btn-save">
-					<button type="submit" class="btn-craw"><?php esc_html_e( 'Craw', 'ot' ) ?></button>
+					<button type="submit" class="btn-craw"><?php esc_html_e( 'Start', 'ot' ) ?></button>
 				</div>
 			</div>
 			<div class="right">
+				<h2><?php esc_html_e( 'Total: ', 'ot' ) ?> <span class="count">0</span></h2>
+				<div class="demo"></div>
 				<div id="mess"></div>
 			</div>
 		</form>
+		<a href="javascript:;" class="stop">Stop</a>
 		<!-- show content -->
 	</div>
 </div>
